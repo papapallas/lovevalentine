@@ -41,3 +41,7 @@ button:hover {
     opacity: 0.2; /* Adjust opacity for subtle grain effect */
     pointer-events: none;
 }
+
+.step {
+  transition: opacity 0.3s ease;
+}
