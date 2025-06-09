@@ -345,7 +345,7 @@
 <body>
   <!-- Background Video -->
   <video autoplay muted loop id="background-video">
-    <source src="websiteBackground.mov" type="video/mp4">
+    <source src="websiteBackground.mp4" type="video/mp4">
     Your browser does not support HTML5 video.
   </video>
   <div class="overlay"></div>
@@ -366,7 +366,7 @@
     <div id="step1" class="step active">
       <div class="letter-container">
         <p class="letter-text">
-          Michael wrote you a letter… Do you want to read it?
+          Michael wrote you a poem… Do you want to hear it?
         </p>
         <div class="heart-buttons">
           <button class="heart-btn heart-yes" id="yesBtn1">YES</button>
@@ -398,7 +398,7 @@
     <div id="step3" class="step">
       <div class="letter-container">
         <p class="letter-text">
-          Since you're still here… you must feel something. Are you still in love?
+          Since you're still here… you must feel something. Shall I take you to Michael's poem?
         </p>
         <div class="heart-buttons">
           <button class="heart-btn heart-yes" id="yesBtn3">YES</button>
@@ -410,7 +410,7 @@
     <!-- FINAL STEP: Poem Reveal -->
     <div id="final" class="step">
       <div class="letter-container">
-        <p class="letter-text">Then let me tell you…</p>
+        <p class="letter-text">let him tell you...</p>
         <div class="crt-frame">
           <div class="video-container">
             <iframe id="poemVideo" src="https://www.youtube.com/embed/telLOUDX1Hg?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -434,6 +434,21 @@
     const burnEffect = document.getElementById('burnEffect');
     const poemLink = document.getElementById('poemLink');
     const poemVideo = document.getElementById('poemVideo');
+    const whitneyVideo = document.getElementById('whitneyVideo');
+
+    // Helper function to pause all videos
+    function pauseAllVideos() {
+      // Pause Whitney video by resetting src (works for iframes)
+      if (whitneyVideo) {
+        whitneyVideo.src = whitneyVideo.src; // This effectively pauses it
+      }
+      
+      // Pause poem video through YouTube API if available
+      if (window.YT && poemVideo) {
+        const player = new YT.get(poemVideo.id);
+        if (player && player.pauseVideo) player.pauseVideo();
+      }
+    }
 
     // Play background video (fallback for some mobile browsers)
     document.addEventListener('DOMContentLoaded', function() {
@@ -471,9 +486,13 @@
     }
 
     // STEP 1: If "YES", go to Step 2. If "NO", show VHS static and end.
-    yesBtn1.addEventListener('click', () => switchStep('step1', 'step2'));
+    yesBtn1.addEventListener('click', () => {
+      pauseAllVideos();
+      switchStep('step1', 'step2');
+    });
 
     noBtn1.addEventListener('click', () => {
+      pauseAllVideos();
       vhsEffect.style.display = 'block';
       setTimeout(() => {
         document.querySelector('.container').innerHTML = `
@@ -488,9 +507,13 @@
     });
 
     // STEP 2: If "YES", go to Step 3. If "NO", early exit.
-    yesBtn2.addEventListener('click', () => switchStep('step2', 'step3'));
+    yesBtn2.addEventListener('click', () => {
+      pauseAllVideos();
+      switchStep('step2', 'step3');
+    });
 
     noBtn2.addEventListener('click', () => {
+      pauseAllVideos();
       document.querySelector('.container').innerHTML = `
         <div class="letter-container">
           <h1 style="font-family: 'Rubik Dirt', cursive; color: var(--deep-crimson);">
@@ -501,9 +524,13 @@
     });
 
     // STEP 3: If "YES", go to Final. If "NO", burn effect and end.
-    yesBtn3.addEventListener('click', () => switchStep('step3', 'final'));
+    yesBtn3.addEventListener('click', () => {
+      pauseAllVideos();
+      switchStep('step3', 'final');
+    });
 
     noBtn3.addEventListener('click', () => {
+      pauseAllVideos();
       burnEffect.style.display = 'block';
       setTimeout(() => {
         document.querySelector('.container').innerHTML = `
@@ -519,6 +546,7 @@
 
     // Helper to hide one step and show the next
     function switchStep(currentId, nextId) {
+      pauseAllVideos(); // Pause videos before transition
       document.getElementById(currentId).classList.remove('active');
       document.getElementById(nextId).classList.add('active');
       window.scrollTo(0, 0);
