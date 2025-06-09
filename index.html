@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Love, Valentine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Special+Elite&family=Alfa+Slab+One&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    /* After Hours-inspired Color Palette */
+    :root {
+      --blood-red:     #FF0000;
+      --deep-crimson:  #CC0000;
+      --neon-red:      #FF3333;
+      --vintage-white: #FFF0F5;
+      --gold:          #FFD700;
+      --black:         #0A0A0A;
+      --electric-blue: #00F0FF;
+    }
+
+    /*——————————————————————————————————————————————————————————————————————
+      BODY + PAGE LAYOUT
+    ——————————————————————————————————————————————————————————————————————*/
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Special Elite', cursive;
+      color: var(--vintage-white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+      background-color: var(--black);
+    }
+
+    /* Background Video */
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    /* Overlay for better text visibility */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    /* Title Container */
+    .title-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* DISTORTED TITLES - After Hours style */
+    .title {
+      font-family: 'Rubik Dirt', cursive;
+      font-size: 6rem;
+      color: var(--blood-red);
+      text-shadow:
+        0 0 10px var(--neon-red),
+        0 0 20px var(--deep-crimson),
+        0 0 40px rgba(255, 0, 0, 0.5);
+      margin: 0;
+      letter-spacing: 3px;
+      position: relative;
+      opacity: 0;
+      animation: fadeInOut 9s infinite;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    /* Top Title */
+    .title-top {
+      align-self: center;
+      margin-top: 2rem;
+      animation-delay: 0s;
+      transform: rotate(-2deg);
+      color: var(--neon-red);
+    }
+
+    /* Middle Title */
+    .title-middle {
+      align-self: center;
+      animation-delay: 3s;
+      font-size: 7rem;
+      color: var(--blood-red);
+      text-shadow:
+        0 0 15px var(--neon-red),
+        0 0 30px var(--deep-crimson),
+        0 0 60px rgba(255, 0, 0, 0.7);
+    }
+
+    /* Bottom Title */
+    .title-bottom {
+      align-self: center;
+      margin-bottom: 2rem;
+      animation-delay: 6s;
+      transform: rotate(2deg);
+      color: var(--deep-crimson);
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: scale(0.9); }
+      10% { opacity: 1; transform: scale(1.1); }
+      30% { opacity: 1; transform: scale(1); }
+      33% { opacity: 0; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1); }
+    }
+
+    /* LETTER-STYLE QUESTION BOX */
+    .letter-container {
+      background: rgba(255, 240, 245, 0.9);
+      color: #333;
+      width: 80%;
+      max-width: 600px;
+      padding: 30px;
+      border: 8px double var(--deep-crimson);
+      box-shadow:
+        0 0 0 8px  rgba(255, 240, 245, 0.7),
+        0 0 0 16px rgba(255, 0, 0, 0.3),
+        0 0 30px rgba(255, 0, 0, 0.5);
+      position: relative;
+      margin: 2rem auto;
+      z-index: 1;
+    }
+
+    .letter-container:before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border: 2px dashed var(--gold);
+      pointer-events: none;
+    }
+
+    .letter-text {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      text-shadow: none;
+    }
+
+    /* HEART BUTTONS CONTAINER */
+    .heart-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    /* HEART BUTTONS - Enhanced visibility */
+    .heart-btn {
+      width: 120px;
+      height: 120px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+      background-color: transparent;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      color: white;
+      text-shadow: 
+        0 0 5px white,
+        0 0 10px var(--electric-blue),
+        0 0 20px var(--neon-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 30px; /* Adjust text position */
+    }
+
+    .heart-btn:hover {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 15px var(--neon-red));
+    }
+
+    .heart-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Complete Heart */
+    .heart-yes {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff0000' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+    }
+
+    /* Broken Heart - Enhanced split effect */
+    .heart-no {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3CclipPath id='left-half'%3E%3Crect x='0' y='0' width='12' height='24'/%3E%3C/clipPath%3E%3CclipPath id='right-half'%3E%3Crect x='12' y='0' width='12' height='24'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg clip-path='url(%23left-half)' transform='translate(-3, 0)'%3E%3Cpath fill='%23ff0000' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/g%3E%3Cg clip-path='url(%23right-half)' transform='translate(3, 0)'%3E%3Cpath fill='%23ff0000' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /*——————————————————————————————————————————————————————————————————————
+      ORIGINAL EFFECTS + OVERLAYS
+    ——————————————————————————————————————————————————————————————————————*/
+
+    /* CRT TV Frame for Video */
+    crt-frame {
+    width: 90%; /* Increased width */
+    margin: 2rem auto;
+    padding: 0; /* Removed padding */
+    background: none; /* Removed dark gradient */
+    border-radius: 10px;
+    box-shadow: none; /* Removed shadow */
+  }
+
+  /* Larger video container for final step */
+  #final .crt-frame {
+    width: 100%; /* Full width */
+    max-width: 800px; /* Larger max size */
+  }
+
+    /* VHS Static Effect */
+    .vhs-static {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/ZyJzH3q.gif') center/cover no-repeat;
+      z-index: 100;
+      display: none;
+    }
+
+    /* Paper Burn Effect */
+    .burn {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/Qz4qJ9r.gif') center/cover no-repeat;
+      z-index: 100;
+      display: none;
+    }
+
+    /* Neon Text */
+    .neon {
+      font-family: 'Alfa Slab One', cursive;
+      color: var(--vintage-white);
+      text-shadow:
+        0 0 5px  var(--neon-red),
+        0 0 10px var(--neon-red),
+        0 0 20px var(--deep-crimson),
+        0 0 40px rgba(255, 0, 0, 0.5);
+      animation: flicker 1.5s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow:
+          0 0 5px  var(--neon-red),
+          0 0 10px var(--neon-red),
+          0 0 20px var(--deep-crimson),
+          0 0 40px rgba(255, 0, 0, 0.5);
+      }
+      20%, 24%, 55% {
+        text-shadow: none;
+      }
+    }
+
+    /* Steps Hidden / Shown */
+    .step    { display: none; }
+    .active  { display: block; }
+    
+    /* Responsive iframe */
+    .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+
+  /* Even larger for final video */
+  #final .video-container {
+    padding-bottom: 75%; /* Taller aspect ratio */
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove iframe border */
+  }
+    
+    /* Poem Link */
+    .poem-link {
+      display: none;
+      margin-top: 2rem;
+      animation: fadeIn 1s forwards;
+    }
+    
+    .poem-link a {
+      color: var(--gold);
+      font-family: 'Special Elite', cursive;
+      font-size: 1.5rem;
+      text-decoration: none;
+      border-bottom: 2px solid var(--neon-red);
+      padding-bottom: 3px;
+      transition: all 0.3s;
+    }
+    
+    .poem-link a:hover {
+      color: var(--neon-red);
+      text-shadow: 0 0 10px var(--neon-red);
+      border-bottom-color: var(--gold);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="background-video">
+    <source src="websiteBackground.mov" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+  <div class="overlay"></div>
+    
+  <!-- Title Container -->
+  <div class="title-container">
+    <div class="title title-top">LOVE, VALENTINE</div>
+    <div class="title title-middle">LOVE, VALENTINE</div>
+    <div class="title title-bottom">LOVE, VALENTINE</div>
+  </div>
+
+  <!-- VHS Static & Burn Overlays (hidden by default) -->
+  <div class="vhs-static" id="vhsEffect"></div>
+  <div class="burn"       id="burnEffect"></div>
+
+  <div class="container">
+    <!-- STEP 1: The Letter Question -->
+    <div id="step1" class="step active">
+      <div class="letter-container">
+        <p class="letter-text">
+          Michael wrote you a letter… Do you want to read it?
+        </p>
+        <div class="heart-buttons">
+          <button class="heart-btn heart-yes" id="yesBtn1">YES</button>
+          <button class="heart-btn heart-no" id="noBtn1">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Whitney Houston Moment -->
+    <div id="step2" class="step">
+      <div class="letter-container">
+        <p class="letter-text">
+          Before we continue… Michael wants to show you how he feels.
+        </p>
+        <div class="crt-frame">
+          <div class="video-container">
+            <iframe id="whitneyVideo" src="https://www.youtube.com/embed/1Bjl9yiZMMg?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <p class="letter-text">Did you feel it?</p>
+        <div class="heart-buttons">
+          <button class="heart-btn heart-yes" id="yesBtn2">YES</button>
+          <button class="heart-btn heart-no" id="noBtn2">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Love Confession -->
+    <div id="step3" class="step">
+      <div class="letter-container">
+        <p class="letter-text">
+          Since you're still here… you must feel something. Are you still in love?
+        </p>
+        <div class="heart-buttons">
+          <button class="heart-btn heart-yes" id="yesBtn3">YES</button>
+          <button class="heart-btn heart-no" id="noBtn3">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL STEP: Poem Reveal -->
+    <div id="final" class="step">
+      <div class="letter-container">
+        <p class="letter-text">Then let me tell you…</p>
+        <div class="crt-frame">
+          <div class="video-container">
+            <iframe id="poemVideo" src="https://www.youtube.com/embed/telLOUDX1Hg?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="poem-link" id="poemLink">
+          <a href="https://distrokid.com/hyperfollow/malii31/love-valentine" target="_blank">Find the rest of the poem here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Cache DOM elements
+    const yesBtn1  = document.getElementById('yesBtn1');
+    const noBtn1   = document.getElementById('noBtn1');
+    const yesBtn2  = document.getElementById('yesBtn2');
+    const noBtn2   = document.getElementById('noBtn2');
+    const yesBtn3  = document.getElementById('yesBtn3');
+    const noBtn3   = document.getElementById('noBtn3');
+    const vhsEffect  = document.getElementById('vhsEffect');
+    const burnEffect = document.getElementById('burnEffect');
+    const poemLink = document.getElementById('poemLink');
+    const poemVideo = document.getElementById('poemVideo');
+
+    // Play background video (fallback for some mobile browsers)
+    document.addEventListener('DOMContentLoaded', function() {
+      const bgVideo = document.getElementById('background-video');
+      bgVideo.play().catch(e => console.log("Autoplay prevented:", e));
+      
+      // Setup YouTube API listeners
+      setupVideoEndListener();
+    });
+
+    // Setup YouTube API to detect when poem video ends
+    function setupVideoEndListener() {
+      // This function will be called by YouTube API when ready
+      window.onYouTubeIframeAPIReady = function() {
+        new YT.Player('poemVideo', {
+          events: {
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      };
+      
+      // Load YouTube API script
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+
+    // Handle YouTube player state changes
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        // Show the poem link when video ends
+        poemLink.style.display = 'block';
+      }
+    }
+
+    // STEP 1: If "YES", go to Step 2. If "NO", show VHS static and end.
+    yesBtn1.addEventListener('click', () => switchStep('step1', 'step2'));
+
+    noBtn1.addEventListener('click', () => {
+      vhsEffect.style.display = 'block';
+      setTimeout(() => {
+        document.querySelector('.container').innerHTML = `
+          <div class="letter-container">
+            <h1 style="font-family: 'Rubik Dirt', cursive; color: var(--deep-crimson);">
+              LOVE, VALENTINE
+            </h1>
+            <p class="letter-text">I guess you'll never hear it.</p>
+          </div>`;
+        vhsEffect.style.display = 'none';
+      }, 2000);
+    });
+
+    // STEP 2: If "YES", go to Step 3. If "NO", early exit.
+    yesBtn2.addEventListener('click', () => switchStep('step2', 'step3'));
+
+    noBtn2.addEventListener('click', () => {
+      document.querySelector('.container').innerHTML = `
+        <div class="letter-container">
+          <h1 style="font-family: 'Rubik Dirt', cursive; color: var(--deep-crimson);">
+            LOVE, VALENTINE
+          </h1>
+          <p class="letter-text">Thank you. That's where your journey ends.</p>
+        </div>`;
+    });
+
+    // STEP 3: If "YES", go to Final. If "NO", burn effect and end.
+    yesBtn3.addEventListener('click', () => switchStep('step3', 'final'));
+
+    noBtn3.addEventListener('click', () => {
+      burnEffect.style.display = 'block';
+      setTimeout(() => {
+        document.querySelector('.container').innerHTML = `
+          <div class="letter-container">
+            <h1 style="font-family: 'Rubik Dirt', cursive; color: var(--deep-crimson);">
+              LOVE, VALENTINE
+            </h1>
+            <p class="letter-text">Then the letter burns away…</p>
+          </div>`;
+        burnEffect.style.display = 'none';
+      }, 3000);
+    });
+
+    // Helper to hide one step and show the next
+    function switchStep(currentId, nextId) {
+      document.getElementById(currentId).classList.remove('active');
+      document.getElementById(nextId).classList.add('active');
+      window.scrollTo(0, 0);
+      
+      // Reset the poem link visibility when switching to final step
+      if (nextId === 'final') {
+        poemLink.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+body {
+    background: #FF1493;
+    font-family: 'Gloucester MT Extra Condensed', serif;
+    color: white;
+    text-align: center;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 3rem;
+    text-shadow: 3px 3px #B22222;
+    margin: 1rem 0;
+}
+
+button {
+    background: #B22222;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background: #8B1A1A;
+}
+
+#grainVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.2; /* Adjust opacity for subtle grain effect */
+    pointer-events: none;
+}
