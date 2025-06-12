@@ -313,27 +313,61 @@
     border: none; /* Remove iframe border */
   }
     
-    /* Poem Link */
+    /* Poem Link - UPDATED TO BE MORE VISIBLE */
     .poem-link {
       display: none;
-      margin-top: 2rem;
+      margin: 2rem auto;
+      text-align: center;
       animation: fadeIn 1s forwards;
+      width: fit-content;
     }
     
     .poem-link a {
-      color: var(--gold);
-      font-family: 'Special Elite', cursive;
-      font-size: 1.5rem;
+      display: inline-block;
+      background-color: var(--blood-red);
+      color: white !important;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.2rem;
       text-decoration: none;
-      border-bottom: 2px solid var(--neon-red);
-      padding-bottom: 3px;
-      transition: all 0.3s;
+      padding: 15px 30px;
+      border-radius: 5px;
+      border: 3px solid var(--gold);
+      box-shadow:
+        0 0 10px var(--neon-red),
+        0 0 20px var(--deep-crimson),
+        0 5px 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      position: relative;
+      overflow: hidden;
+      animation: pulse 2s infinite;
     }
     
     .poem-link a:hover {
-      color: var(--neon-red);
-      text-shadow: 0 0 10px var(--neon-red);
-      border-bottom-color: var(--gold);
+      background-color: var(--deep-crimson);
+      transform: translateY(-3px);
+      box-shadow:
+        0 0 15px var(--neon-red),
+        0 0 30px var(--deep-crimson),
+        0 8px 20px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 0 10px white;
+    }
+    
+    .poem-link a:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 0 5px var(--neon-red),
+        0 0 10px var(--deep-crimson),
+        0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Pulsing animation to draw attention */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     
     @keyframes fadeIn {
@@ -417,7 +451,7 @@
           </div>
         </div>
         <div class="poem-link" id="poemLink">
-          <a href="https://distrokid.com/hyperfollow/malii31/love-valentine" target="_blank">Find the rest of the poem here</a>
+          <a href="https://distrokid.com/hyperfollow/malii31/love-valentine" target="_blank">FIND THE REST OF THE POEM HERE</a>
         </div>
       </div>
     </div>
